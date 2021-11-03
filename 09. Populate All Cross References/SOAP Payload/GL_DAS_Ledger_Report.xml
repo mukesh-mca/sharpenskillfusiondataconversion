@@ -1,0 +1,29 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:pub="http://xmlns.oracle.com/oxp/service/PublicReportService">
+   <soap:Header/>
+   <soap:Body>
+      <pub:runReport>
+         <pub:reportRequest>
+            <pub:attributeFormat>csv</pub:attributeFormat>
+            <pub:parameterNameValues>
+               <!--Zero or more repetitions:-->
+               <pub:item>
+                  <pub:name>p_das_name</pub:name>
+                  <pub:values>
+                     <!--Zero or more repetitions:-->
+                     <pub:item>US Primary Ledger</pub:item>
+                  </pub:values>
+               </pub:item>
+               <pub:item>
+                  <pub:name>p_ledger_name</pub:name>
+                  <pub:values>
+                     <!--Zero or more repetitions:-->
+                     <pub:item>US Primary Ledger</pub:item>
+                  </pub:values>
+               </pub:item>
+            </pub:parameterNameValues>
+            <pub:reportAbsolutePath>/Custom/Financials/GL_DAS_Ledger_Report.xdo</pub:reportAbsolutePath>
+            <pub:sizeOfDataChunkDownload>-1</pub:sizeOfDataChunkDownload>
+         </pub:reportRequest>
+      </pub:runReport>
+   </soap:Body>
+</soap:Envelope>

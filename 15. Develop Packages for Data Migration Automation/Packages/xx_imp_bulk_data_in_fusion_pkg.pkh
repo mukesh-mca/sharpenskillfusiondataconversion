@@ -1,0 +1,96 @@
+CREATE OR REPLACE PACKAGE xx_imp_bulk_data_in_fusion_pkg 
+AS
+  /*------------------------------------------
+  --
+  -- Author: Raja
+  -- Version                  Description
+  --  v1                      added import_gl_journals                     
+  --------------------------------------------*/
+  
+  -- Journal Specific --
+  gc_gl_doc_account           VARCHAR2(50)    := 'fin$/generalLedger$/import$';
+  gc_gl_job_name              VARCHAR2(500)   := 'oracle/apps/ess/financials/generalLedger/programs/common,JournalImportLauncher';
+  gc_notify_code              VARCHAR2(5)     := '30';
+  gc_gl_cb_url                VARCHAR2(1000)  := NULL;
+  
+  -- Common --
+  gc_username                 VARCHAR2(100)   := 'Raja.Dutta';
+  gc_doc_security_group       VARCHAR2(50)    := 'FAFusionImportExport';
+  gc_zip_mimetype             VARCHAR2(10)    := 'zip';
+  gc_dba_dir                  VARCHAR2(100)   := 'STAGE_DIR';
+  
+  gc_gl_journal_payload_begin CLOB          := '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/financials/commonModules/shared/model/erpIntegrationService/types/" xmlns:erp="http://xmlns.oracle.com/apps/financials/commonModules/shared/model/erpIntegrationService/">
+  <soapenv:Body>
+  <typ:importBulkData>';
+  gc_gl_journal_payload_end   CLOB          := '</typ:importBulkData>
+  </soapenv:Body>
+  </soapenv:Envelope>';
+  
+  -- XX_FIND_ESS_REQUESTID_REPORT Report related attributes
+  gc_xml_attributeFormat        VARCHAR2(50)    := 'xml';
+  gc_essjob_req_xdo             VARCHAR2(500)   := '/Custom/Financials/XX_FIND_ESS_REQUESTID_REPORT.xdo';
+  gc_essjob_req_payload_begin   CLOB            := '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:pub="http://xmlns.oracle.com/oxp/service/PublicReportService">
+	   <soap:Header/>
+	   <soap:Body>
+		  <pub:runReport>
+			 <pub:reportRequest>
+			   <pub:attributeFormat>'||gc_xml_attributeFormat||'</pub:attributeFormat>
+			   <pub:parameterNameValues>
+                  <pub:item>
+                     <pub:name>p_param_name</pub:name>
+                     <pub:values>
+                        <pub:item>submit.argument%attributeValue</pub:item>
+                     </pub:values>
+                  </pub:item>
+                  <pub:item>
+                     <pub:name>p_group_id</pub:name>
+                     <pub:values>
+                        <pub:item>';
+  gc_essjob_req_payload_end       CLOB            := '</pub:item>
+                     </pub:values>
+                  </pub:item>
+            </pub:parameterNameValues>
+				<pub:reportAbsolutePath>'||gc_essjob_req_xdo||'</pub:reportAbsolutePath>
+				<pub:sizeOfDataChunkDownload>-1</pub:sizeOfDataChunkDownload>
+				</pub:reportRequest>
+				 </pub:runReport>
+	   </soap:Body>
+	</soap:Envelope>';
+  
+  -- XX GL Journal Reconciliation Report related attributes
+  gc_csv_attributeFormat         VARCHAR2(50)    := 'csv';  
+  gc_journal_recon_req_xdo       VARCHAR2(500)   := '/Custom/Financials/XX GL Journal Reconciliation Report.xdo';  
+  gc_journal_recon_req_payload_s CLOB := '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:pub="http://xmlns.oracle.com/oxp/service/PublicReportService">
+	   <soap:Header/>
+	   <soap:Body>
+		  <pub:runReport>
+			 <pub:reportRequest>
+			   <pub:attributeFormat>'||gc_csv_attributeFormat||'</pub:attributeFormat>
+			   <pub:parameterNameValues>
+                  <pub:item>
+                     <pub:name>p_group_id</pub:name>
+                     <pub:values>
+                        <pub:item>';
+  gc_journal_recon_req_payload_e CLOB := '</pub:item>
+                     </pub:values>
+                  </pub:item>
+            </pub:parameterNameValues>
+				<pub:reportAbsolutePath>'||gc_journal_recon_req_xdo||'</pub:reportAbsolutePath>
+				<pub:sizeOfDataChunkDownload>-1</pub:sizeOfDataChunkDownload>
+				</pub:reportRequest>
+				 </pub:runReport>
+	   </soap:Body>
+	</soap:Envelope>';
+
+  
+  --
+  -- To import GL Journal into Fusion from DBaaS/ ATP/ On-Premise DB
+  --
+  PROCEDURE import_gl_journals(
+      p_ledger_name         IN VARCHAR2
+	, p_group_id            IN NUMBER
+	, p_header_required     IN VARCHAR2 DEFAULT 'N'
+	, p_verbose_logging     IN VARCHAR2 DEFAULT 'N'
+  );
+  
+END xx_imp_bulk_data_in_fusion_pkg;

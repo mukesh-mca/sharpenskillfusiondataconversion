@@ -1,0 +1,20 @@
+CREATE OR REPLACE PACKAGE xx_gl_journal_prevld_pkg
+AS
+
+  /*------------------------------------------
+  --
+  -- Author: Raja
+  -- Version                  Description
+  --  v1                      added validate_gl_journals
+  --
+  --------------------------------------------*/
+  
+  --
+  -- Validate GL Journals
+  --
+  PROCEDURE validate_gl_journals(
+      p_ledger_name  IN VARCHAR2
+	, o_succ_rec_cnt OUT NUMBER
+  );
+  
+END xx_gl_journal_prevld_pkg;

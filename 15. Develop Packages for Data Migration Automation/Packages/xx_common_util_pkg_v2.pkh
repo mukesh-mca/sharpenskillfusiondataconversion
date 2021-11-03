@@ -1,0 +1,101 @@
+CREATE OR REPLACE PACKAGE xx_common_util_pkg
+AS
+
+  /*------------------------------------------
+  --
+  -- Author: Raja
+  -- Version                  Description
+  --  v1                      added decode_base64, convert_to_xml
+  --  v2                      added file_name_rec_typ, file_name_tbl_typ, gc_var_tbl,
+  --                          prepare_data, clob_to_blob,write_clob2file,generate_zipblob,
+  --                          base64encode, get_properties
+  --------------------------------------------*/
+  
+  -- Added as part of v2
+  TYPE file_name_rec_typ IS RECORD(
+    file_name VARCHAR2(500)
+  );
+  TYPE file_name_tbl_typ IS TABLE OF file_name_rec_typ;
+  
+  TYPE gc_var_tbl IS TABLE OF VARCHAR2(100) INDEX BY PLS_INTEGER;
+  -- End v2 changes
+  
+  --
+  -- Function to decode a Base64 CLOB into a BLOB
+  --
+  FUNCTION decode_base64 (
+    p_clob CLOB
+  ) 
+  RETURN BLOB;
+  
+  --
+  -- Function to convert blob to Xml data
+  --
+  FUNCTION convert_to_xml (
+    p_blob BLOB
+  )
+  RETURN CLOB;
+  
+  -- Added as part of v2
+  --
+  -- Prepare Data from each entity table of an object
+  -- DBMS_SQL package is used to dynamically execute a sql query and fetch rows
+  --
+  FUNCTION prepare_data(
+      p_sql_text        IN CLOB
+	, p_header_required IN VARCHAR2 DEFAULT 'N'
+  )
+  RETURN CLOB;
+  
+  --
+  -- Function that takes CLOB and return BLOB
+  --
+  FUNCTION clob_to_blob(
+    p_clob IN CLOB
+  ) 
+  RETURN BLOB;
+  
+  --
+  -- write clob into file
+  --
+  PROCEDURE write_clob2file(
+      p_clob      IN CLOB
+	, p_dir       IN VARCHAR2
+	, p_file_name IN VARCHAR2
+  );
+
+  --
+  -- Function to generate zip from files in Storage/ File System
+  -- and return as BLOB
+  --
+  FUNCTION generate_zipblob(
+      p_dba_dir    IN VARCHAR2
+    , pt_filenames IN file_name_tbl_typ
+  )
+  RETURN BLOB;
+  
+  --
+  -- Write BLOB to File
+  --
+  PROCEDURE blob2file(
+      p_dba_dir      VARCHAR2
+	, p_file_name    VARCHAR2
+    , p_blob_content BLOB
+  );
+  
+  --
+  -- Encodes a BLOB into a Base64 CLOB
+  --
+  FUNCTION base64encode(p_blob IN BLOB)
+  RETURN CLOB;
+  
+  --
+  -- Get Parameters for Import Job in PL/SQL Table (Column to row transpose is done)
+  --
+  FUNCTION get_parameters(
+      p_unique_id_val1    IN  VARCHAR2
+    , p_unique_id_val2    IN  VARCHAR2
+    , p_unique_id_val3    IN  VARCHAR2
+  ) RETURN gc_var_tbl;
+  -- End v2 Changes
+END xx_common_util_pkg;

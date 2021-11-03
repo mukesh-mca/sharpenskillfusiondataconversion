@@ -1,0 +1,3 @@
+FromCurrencyCode,ToCurrencyCode,ConversionRate,FromConversionDate,ToConversionDate,ConversionRate,InverseRate
+USD,INR,Corporate,20-Nov-21,21-Nov-21,72.01,
+GBP,INR,Corporate,20-Nov-21,21-Nov-21,95.01,

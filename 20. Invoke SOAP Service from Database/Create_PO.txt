@@ -1,0 +1,34 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ns1:createPurchaseOrder xmlns:ns1="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/">
+            <ns1:createOrderEntry xmlns:ns2="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/">
+                <ns2:DocumentStyle>Purchase Order</ns2:DocumentStyle>
+                <ns2:ProcurementBusinessUnit>US1 Business Unit</ns2:ProcurementBusinessUnit>
+                <ns2:RequisitioningBusinessUnit>US1 Business Unit</ns2:RequisitioningBusinessUnit>
+                <ns2:SoldToLegalEntity>US1 Legal Entity NC</ns2:SoldToLegalEntity>
+                <ns2:BuyerName>Gee, May</ns2:BuyerName>
+                <ns2:Supplier>EIP Inc</ns2:Supplier>
+                <ns2:SupplierSiteCode>EIP US1</ns2:SupplierSiteCode>
+                <ns2:SupplierContactName>Kim, John</ns2:SupplierContactName>
+                <ns2:DocumentDescription>Create using name attributes</ns2:DocumentDescription>
+                <ns2:PurchaseOrderEntryLine>
+                    <ns2:LineNumber>1</ns2:LineNumber>
+                    <ns2:LineType>Goods</ns2:LineType>
+                    <!--<ns2:ItemNumber>CM31556</ns2:ItemNumber>-->
+					<ns2:ItemDescription>Test PO item</ns2:ItemDescription>
+                    <ns2:CategoryName>Miscellaneous</ns2:CategoryName>
+					<ns2:Price>11</ns2:Price>
+                    <ns2:UnitOfMeasure>Ea</ns2:UnitOfMeasure>
+                    <ns2:Quantity>10</ns2:Quantity>
+                    <ns2:PurchaseOrderEntrySchedule>
+                        <ns2:ShipToLocationCode>Seattle</ns2:ShipToLocationCode>
+						<ns2:ShipToOrganizationCode>001</ns2:ShipToOrganizationCode>
+                        <ns2:PurchaseOrderEntryDistribution>
+							<ns2:POChargeAccount>101.10.63120.251.000.000</ns2:POChargeAccount>
+                        </ns2:PurchaseOrderEntryDistribution>
+                    </ns2:PurchaseOrderEntrySchedule>
+                </ns2:PurchaseOrderEntryLine>
+            </ns1:createOrderEntry>
+        </ns1:createPurchaseOrder>
+    </soap:Body>
+</soap:Envelope>

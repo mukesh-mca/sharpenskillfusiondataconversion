@@ -1,0 +1,12 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:pub="http://xmlns.oracle.com/oxp/service/PublicReportService">
+   <soap:Header/>
+   <soap:Body>
+      <pub:runReport>
+         <pub:reportRequest>
+            <pub:attributeFormat>xml</pub:attributeFormat>
+            <pub:reportAbsolutePath>/Custom/Financials/XX_GL_PERIODS_REPORT.xdo</pub:reportAbsolutePath>
+            <pub:sizeOfDataChunkDownload>-1</pub:sizeOfDataChunkDownload>
+         </pub:reportRequest>
+      </pub:runReport>
+   </soap:Body>
+</soap:Envelope>

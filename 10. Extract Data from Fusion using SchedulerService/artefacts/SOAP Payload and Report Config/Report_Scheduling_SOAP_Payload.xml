@@ -1,0 +1,34 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:sch="http://xmlns.oracle.com/oxp/service/ScheduleReportService">
+   <soap:Header/>
+   <soap:Body>
+      <sch:scheduleReport>
+         <scheduleRequest>
+            <deliveryChannels>
+               <ftpOptions>
+                  <ftpServerName>TEST</ftpServerName>
+                  <remoteFile>/home/ubuntu/outbound/invoice/Invoice2.csv</remoteFile>
+                  <sftpOption>true</sftpOption>
+               </ftpOptions>
+            </deliveryChannels>
+            <reportRequest>
+               <attributeFormat>csv</attributeFormat>
+               <parameterNameValues>
+                  <listOfParamNameValues>
+                     <name>p_source</name>
+                     <values>ISP</values>
+                  </listOfParamNameValues>
+                  <listOfParamNameValues>
+                     <name>p_inv_num</name>
+                     <values>162034inv</values>
+                  </listOfParamNameValues>
+               </parameterNameValues>
+               <reportAbsolutePath>/Custom/Financials/XXDEMO_RTF_TEMPLATE.xdo</reportAbsolutePath>
+            </reportRequest>
+            <saveDataOption>true</saveDataOption>
+            <saveOutputOption>true</saveOutputOption>
+            <schedulePublicOption>true</schedulePublicOption>
+            <userJobName>Test Job SOAP</userJobName>
+         </scheduleRequest>
+      </sch:scheduleReport>
+   </soap:Body>
+</soap:Envelope>

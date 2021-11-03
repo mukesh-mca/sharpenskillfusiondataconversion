@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/prc/po/editDocument/purchaseOrderServiceV2/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:getPurchaseOrder>
+         <typ:poHeaderId>300000224661128</typ:poHeaderId>
+      </typ:getPurchaseOrder>
+   </soapenv:Body>
+</soapenv:Envelope>

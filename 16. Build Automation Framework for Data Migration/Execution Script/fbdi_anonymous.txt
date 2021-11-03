@@ -1,0 +1,11 @@
+BEGIN
+  dbms_output.put_line('Start Here..');
+  xx_imp_bulk_data_in_fusion_pkg.import_gl_journals(
+      p_gljournal_instance => 'JournalImport_US'
+    , p_ledger_name => 'US Primary Ledger'
+    , p_group_id => 14099
+    , p_header_required => 'N'
+    , p_verbose_logging => 'Y'
+  );
+  dbms_output.put_line('Imported');
+END;

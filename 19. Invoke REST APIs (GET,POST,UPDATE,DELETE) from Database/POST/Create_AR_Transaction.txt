@@ -1,0 +1,43 @@
+{
+    "BillToCustomerNumber": "16080",
+	"BillToSite": "San Jose",
+    "BusinessUnit": "US1 Business Unit",
+    "InvoiceCurrencyCode": "USD",
+    "PaymentTerms": "Net 30",
+    "TransactionDate": "2020-10-10",
+    "TransactionSource": "Manual",
+    "ShipToCustomerNumber": "16080",
+    "ShipToSite": "1032",
+    "TransactionType": "Invoice",
+    "InvoiceStatus": "Complete",
+    "receivablesInvoiceLines": [
+       {
+          "Description": "Item",
+          "LineNumber": 1,
+          "Quantity": 102,
+          "UnitSellingPrice": 100,
+          "receivablesInvoiceLineTaxLines": [
+             {
+                "TaxAmount": 663,
+				"TaxRate": 6.5,
+				"TaxRateCode": "STD",
+				"TaxRegimeCode": "US SALES AND USE TAX"
+             }
+          ]
+       },
+       {
+          "Description": "Item",
+          "LineNumber": 2,
+          "Quantity": 10,
+          "UnitSellingPrice": 100,
+          "receivablesInvoiceLineTaxLines": [
+             {
+                "TaxAmount": 65,
+				"TaxRate": 6.5,
+				"TaxRateCode": "STD",
+				"TaxRegimeCode": "US SALES AND USE TAX"
+             }
+          ]
+       }
+    ]
+ }

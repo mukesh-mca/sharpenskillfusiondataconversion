@@ -1,0 +1,27 @@
+CREATE OR REPLACE PACKAGE xx_common_util_pkg
+AS
+  /*------------------------------------------
+  --
+  -- Author: Raja
+  -- Version                  Description
+  --  v1                      added decode_base64, convert_to_xml
+  --
+  --------------------------------------------*/
+ 
+  --
+  -- Function to Decodes a Base64 CLOB into a BLOB
+  --
+  FUNCTION decode_base64 (
+    p_clob CLOB
+  ) 
+  RETURN BLOB;
+  
+  --
+  -- Function to convert blob to Xml data
+  --
+  FUNCTION convert_to_xml (
+    p_blob BLOB
+  )
+  RETURN CLOB;
+  
+END xx_common_util_pkg;

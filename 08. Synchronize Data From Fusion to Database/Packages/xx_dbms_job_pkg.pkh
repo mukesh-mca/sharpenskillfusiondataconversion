@@ -1,0 +1,4 @@
+CREATE OR REPLACE PACKAGE xx_dbms_job_pkg AS
+  -- To create Program, Job on xx_sync_data_bw_fusion_db_pkg.sync_gl_periods and run at pre-defined interval
+  PROCEDURE sync_gl_periods_prog(p_interval IN VARCHAR2);
+END xx_dbms_job_pkg;

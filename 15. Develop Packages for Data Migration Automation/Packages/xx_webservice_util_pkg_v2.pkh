@@ -1,0 +1,75 @@
+CREATE OR REPLACE PACKAGE xx_webservice_util_pkg
+AS
+  /*------------------------------------------
+  --
+  -- Author: Raja
+  -- Version                  Description
+  --  v1                      added invoke_report_service, get_report_xml
+  --  v2                      added invoke_importbulkdata_service,
+  --                          invoke_getessjobstatus_svc, get_essjob_status
+  --------------------------------------------*/
+  
+  gc_report_url           VARCHAR2(2000)  := 'https://UCF6-zxnh-fa-ext.oracledemos.com/xmlpserver/services/ExternalReportWSSService';
+  gc_username             VARCHAR2(100)   := 'Raja.Tran';
+  gc_password             VARCHAR2(100)   := 'Welcome@123';
+  gc_wallet_path          VARCHAR2(1000);
+  gc_wallet_password      VARCHAR2(100);
+  gc_version              NUMBER          := 1.2;
+  
+  --
+  gc_erpint_url           VARCHAR2(2000)  := 'https://UCF6-zxnh-fa-ext.oracledemos.com/fscmService/ErpIntegrationService';
+  gc_version_11           NUMBER          := 1.1;
+  
+  -- Added as part of v2
+  gc_essjob_status_payload_begin CLOB           := '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://xmlns.oracle.com/apps/financials/commonModules/shared/model/erpIntegrationService/types/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:getESSJobStatus>
+         <typ:requestId>';
+  gc_essjob_status_payload_end  CLOB  := '</typ:requestId>
+      </typ:getESSJobStatus>
+   </soapenv:Body>
+  </soapenv:Envelope>';
+  -- End v2 Changes
+  
+  --
+  --  To invoke Report Service and get the Base64 Encoded String
+  --
+  PROCEDURE invoke_report_service (
+      p_envelope_payload   IN    CLOB
+    , o_payload            OUT   CLOB
+  );
+  
+  --
+  -- Get the Report Output in XML format
+  --
+  PROCEDURE get_report_xml (
+      p_envelope_payload IN  CLOB
+    , o_payload          OUT CLOB
+  );
+  
+  -- Added as part of v2
+  --
+  -- Invoke ERP Integration Service(importBulkData)
+  --
+  PROCEDURE invoke_importbulkdata_service (
+      p_envelope_payload   IN    CLOB
+    , o_result             OUT   VARCHAR2
+  );
+  
+  --
+  -- Invoke ERP Integration Service(getESSJobStatus)
+  --
+  PROCEDURE invoke_getessjobstatus_svc (
+      p_envelope_payload   IN    CLOB
+    , o_result             OUT   VARCHAR2
+  );
+  
+  --
+  -- To get status of the ESS Job being submitted at 30 secs of interval for 10 times
+  -- (Timer and no. of times can be increased/ decreased based on data volume, no. ESS servers etc.)
+  --
+  FUNCTION get_essjob_status(p_request_id IN VARCHAR2)
+  RETURN VARCHAR2;
+  -- End v2 changes
+END xx_webservice_util_pkg;

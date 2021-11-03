@@ -1,0 +1,1 @@
+CREATE TABLE xx_blob_tbl(blob_val BLOB);

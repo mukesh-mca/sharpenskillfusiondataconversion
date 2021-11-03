@@ -1,0 +1,24 @@
+CREATE OR REPLACE PACKAGE xx_sync_data_bw_fusion_db_pkg 
+AS
+
+  gc_xml_attributeFormat  VARCHAR2(50)    := 'xml';
+  gc_gl_period_xdo        VARCHAR2(500)   := '/Custom/Financials/XX_GL_PERIODS_REPORT.xdo';
+  gc_gl_periods_payload   CLOB            := '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:pub="http://xmlns.oracle.com/oxp/service/PublicReportService">
+	   <soap:Header/>
+	   <soap:Body>
+		  <pub:runReport>
+			 <pub:reportRequest>
+			   <pub:attributeFormat>'||gc_xml_attributeFormat||'</pub:attributeFormat>
+				<pub:reportAbsolutePath>'||gc_gl_period_xdo||'</pub:reportAbsolutePath>
+				<pub:sizeOfDataChunkDownload>-1</pub:sizeOfDataChunkDownload>
+				</pub:reportRequest>
+				 </pub:runReport>
+	   </soap:Body>
+	</soap:Envelope>';
+	
+  --
+  -- To Sync GL Periods Status from Fusion to DBaaS/ ATP/ On-Premise DB
+  -- Author: Raja Dutta 
+  --
+  PROCEDURE sync_gl_periods;
+END xx_sync_data_bw_fusion_db_pkg;

@@ -1,0 +1,61 @@
+To upload document to UCM:
+--------------------------
+https://ucf6-zxnh-fa-ext.oracledemos.com/idcws/GenericSoapPort?WSDL
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ucm="http://www.oracle.com/UCM">
+   <soapenv:Body>
+      <ucm:GenericRequest webKey="cs">
+         <ucm:Service IdcService="CHECKIN_NEW">
+            <ucm:Document>
+               <ucm:Field name="dUser">Raja.Tran</ucm:Field>
+               <ucm:Field name="dDocTitle">GeoStructureInterface.csv</ucm:Field>
+               <ucm:Field name="dDocType">Document</ucm:Field>
+               <ucm:Field name="dDocAuthor">Raja.Tran</ucm:Field>
+               <ucm:Field name="dSecurityGroup">FAFusionImportExport</ucm:Field>
+               <ucm:Field name="dDocAccount">crm$/countryStructure$/import$</ucm:Field>
+               <ucm:File href="GeoStructureInterface.csv" name="primaryFile">
+                  <ucm:Contents>Q291bnRyeUNvZGUsR2VvZ3JhcGh5VHlwZSxMZXZlbE51bWJlcgpCQSxDT1VOVFJZLDEKQkEsU1RBVEUsMgpCQSxDT1VOVFksMwpCQSxDSVRZLDQKQkEsUE9TVEFMIENPREUsNQ==</ucm:Contents>
+               </ucm:File>
+            </ucm:Document>
+         </ucm:Service>
+      </ucm:GenericRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+
+To submit import activity:
+----------------------------
+https://ucf6-zxnh-fa-ext.oracledemos.com/crmRestApi/resources/11.13.18.05/importActivities
+POST
+
+{
+      "Name": "RevDemo",
+      "ObjectCode": "GeoStructureInterface",
+      "Activate": "YES",
+      "HighVolume":"YES",/* this is optional */
+      "DataFiles" : [{
+                   "InputFileContentId": "UCMFA02955552"
+                    }]
+}
+
+To get the status of import activity:
+--------------------------------------
+https://ucf6-zxnh-fa-ext.oracledemos.com/crmRestApi/resources/11.13.18.05/importActivities/300000221919927/child/DataFiles/UCMFA02955586
+GET
+
+To download the Error Report/ Exception Report:
+---------------------------------------------------
+https://ucf6-zxnh-fa-ext.oracledemos.com/idcws/GenericSoapPort?WSDL
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ucm="http://www.oracle.com/UCM">
+   <soapenv:Body>
+      <ucm:GenericRequest webKey="cs">
+         <ucm:Service IdcService="GET_FILE">
+            <ucm:Document>
+               <ucm:Field name="dDocName">UCMFA02955597</ucm:Field>
+               <ucm:Field name="RevisionSelectionMethod">Latest</ucm:Field>
+            </ucm:Document>
+         </ucm:Service>
+      </ucm:GenericRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

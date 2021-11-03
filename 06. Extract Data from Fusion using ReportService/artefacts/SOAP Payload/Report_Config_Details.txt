@@ -1,0 +1,3 @@
+https://ucf6-zxrj-fa-ext.oracledemos.com/xmlpserver/services/ExternalReportWSSService?WSDL
+
+/Custom/Financials/XX_GL_PERIODS_REPORT.xdo

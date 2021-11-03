@@ -1,0 +1,11 @@
+https://ucf6-zxnh-fa-ext.oracledemos.com/xmlpserver/services/ScheduleReportWSSService?wsdl
+
+/Custom/Financials/XXDEMO_RTF_TEMPLATE.xdo
+
+Parameters:
+p_source
+p_inv_num
+
+Test Data:
+Invoice Source: ISP
+Invoice Number: 162034inv

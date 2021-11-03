@@ -1,0 +1,33 @@
+CREATE OR REPLACE PACKAGE xx_webservice_util_pkg
+AS
+  /*------------------------------------------
+  --
+  -- Author: Raja
+  -- Version                  Description
+  --  v1                      added invoke_report_service, get_report_xml
+  --
+  --------------------------------------------*/
+  gc_url                  VARCHAR2(2000)  := 'https://ucf6-zxnh-fa-ext.oracledemos.com/xmlpserver/services/ExternalReportWSSService';
+  gc_username             VARCHAR2(100)   := 'Raja.Tran';
+  gc_password             VARCHAR2(100)   := 'Welcome@123';
+  gc_wallet_path          VARCHAR2(1000);
+  gc_wallet_password      VARCHAR2(100);
+  gc_version              NUMBER          := 1.2;
+  
+  --
+  --  To invoke Report Service and get the Base64 Encoded String
+  --
+  PROCEDURE invoke_report_service (
+      p_envelope_payload   IN    CLOB
+    , o_payload            OUT   CLOB
+  );
+  
+  --
+  -- Get the Report Output in XML format
+  --
+  PROCEDURE get_report_xml (
+      p_envelope_payload IN  CLOB
+    , o_payload          OUT CLOB
+  );
+
+END xx_webservice_util_pkg;
